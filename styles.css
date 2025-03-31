@@ -1,0 +1,201 @@
+/* Modo Claro */
+body {
+  background-color: #f8f9fa;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  overflow-x: hidden;
+  color: #212529;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.card {
+  background-color: #ffffff;
+  color: #212529;
+  border-radius: 10px;
+  border: none;
+  transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card-header {
+  background-color: #f8f9fa;
+  color: #212529;
+  border-top-left-radius: 10px !important;
+  border-top-right-radius: 10px !important;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.card-body {
+  background-color: #ffffff;
+  color: #212529;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Modo Escuro */
+.dark-mode {
+  background-color: #343a40;
+  color: #ffffff;
+}
+
+.dark-mode .card {
+  background-color: #495057;
+  color: #ffffff !important;
+}
+
+.dark-mode .card-header {
+  background-color: #495057;
+  color: #ffffff;
+}
+
+.dark-mode .card-body {
+  background-color: #495057;
+  color: #ffffff;
+}
+
+.dark-mode .btn-primary {
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+}
+
+.dark-mode .btn-secondary {
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+
+.dark-mode .profile-header {
+  background: linear-gradient(135deg, #495057, #343a40);
+  color: white;
+}
+
+.dark-mode .profile-img {
+  background-color: #e9ecef;
+}
+
+/* Estilos Gerais */
+.navbar-brand {
+  font-weight: 600;
+}
+
+.exercise-item {
+  border-left: 4px solid #0d6efd;
+  transition: all 0.2s ease-in-out;
+}
+
+.exercise-item:hover {
+  background-color: #f8f9fa;
+}
+
+.exercise-item.running {
+  border-left-color: #0d6efd;
+}
+
+.exercise-item.cycling {
+  border-left-color: #20c997;
+}
+
+.exercise-item.swimming {
+  border-left-color: #0dcaf0;
+}
+
+.exercise-item.weights {
+  border-left-color: #6f42c1;
+}
+
+.exercise-item.yoga {
+  border-left-color: #fd7e14;
+}
+
+.exercise-item.other {
+  border-left-color: #6c757d;
+}
+
+.exercise-icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: white;
+  margin-right: 15px;
+}
+
+.running .exercise-icon {
+  background-color: #0d6efd;
+}
+
+.cycling .exercise-icon {
+  background-color: #20c997;
+}
+
+.swimming .exercise-icon {
+  background-color: #0dcaf0;
+}
+
+.weights .exercise-icon {
+  background-color: #6f42c1;
+}
+
+.yoga .exercise-icon {
+  background-color: #fd7e14;
+}
+
+.other .exercise-icon {
+  background-color: #6c757d;
+}
+
+.btn-delete-exercise {
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.exercise-item:hover .btn-delete-exercise {
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .btn-delete-exercise {
+    opacity: 1;
+  }
+
+  .dark-mode .profile-header {
+    padding: 1rem;
+  }
+
+  .dark-mode .profile-img {
+    width: 80px;
+    height: 80px;
+  }
+
+  .dark-mode .navbar-nav {
+    justify-content: center;
+  }
+
+  .dark-mode .navbar-brand {
+    font-size: 1.2rem;
+  }
+
+  .dark-mode .nav-link {
+    font-size: 0.9rem;
+  }
+
+  .dark-mode .form-control {
+    font-size: 0.9rem;
+  }
+
+  .dark-mode .btn {
+    font-size: 0.9rem;
+  }
+}
+/* Estilo para o gráfico semanal */
+#weeklyChart {
+  height: 200px; /* Altura fixa */
+  max-height: 200px; /* Limita a altura máxima */
+  overflow: hidden; /* Previne rolagem dentro do gráfico */
+}
+
+.card-body {
+  overflow: hidden; /* Previne rolagem dentro do corpo do card */
+}

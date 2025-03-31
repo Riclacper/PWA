@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Perfil - Diário de Exercícios</title>
+    <body class="light-mode"></body>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link href="styles.css" rel="stylesheet" />
+    <link rel="preload" href="styles.css" as="style" />
+    <link rel="preload" href="profile.js" as="script" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="theme-color" content="#0d6efd" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"
+      defer
+    ></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <div class="container">
+        <a class="navbar-brand" href="#"
+          ><i class="fas fa-running me-2"></i>Diário de Exercícios</a
+        >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Início</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="profile.html" aria-current="page"
+                >Perfil</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#" id="logoutBtn">Sair</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Menu de Navegação Interna -->
+    <nav id="internalNav" class="internal-nav mb-4">
+      <div class="container d-flex justify-content-around">
+        <a
+          href="#info-section"
+          class="text-decoration-none text-dark px-2 py-1"
+        >
+          Informações Pessoais
+        </a>
+        <a
+          href="#stats-section"
+          class="text-decoration-none text-dark px-2 py-1"
+        >
+          Estatísticas
+        </a>
+        <a
+          href="#config-section"
+          class="text-decoration-none text-dark px-2 py-1"
+        >
+          Configurações
+        </a>
+      </div>
+    </nav>
+
+    <main class="container my-4">
+      <div class="profile-header mb-4">
+        <div class="d-flex align-items-center">
+          <div class="profile-img me-3"><i class="fas fa-user"></i></div>
+          <div>
+            <h3 id="profileName">Usuário</h3>
+            <p class="mb-0" id="profileEmail">usuario@exemplo.com</p>
+          </div>
+        </div>
+      </div>
+
+      <span class="anchor-target" id="info-section"></span>
+
+      <div class="row mb-4">
+        <div class="col-md-4">
+          <div class="card shadow-sm">
+            <div class="card-header bg-light">
+              <h5 class="mb-0">Informações Pessoais</h5>
+            </div>
+            <div class="card-body">
+              <form id="profileForm">
+                <div class="mb-3">
+                  <label class="form-label">Nome</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="nameInput"
+                    value="Usuário"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Email</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="emailInput"
+                    value="usuario@exemplo.com"
+                    readonly
+                  />
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Idade</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="ageInput"
+                    min="1"
+                    max="120"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Peso (kg)</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="weightInput"
+                    min="1"
+                    step="0.1"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Altura (cm)</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="heightInput"
+                    min="1"
+                  />
+                </div>
+                <button type="submit" class="btn btn-primary w-100">
+                  Salvar Alterações
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-8">
+          <span class="anchor-target" id="stats-section"></span>
+
+          <div class="card shadow-sm mb-4">
+            <div class="card-header bg-light">
+              <h5 class="mb-0">Estatísticas</h5>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-4 mb-3">
+                  <div class="card bg-primary text-white text-center p-3">
+                    <div><i class="fas fa-dumbbell fa-2x mb-2"></i></div>
+                    <h2 id="totalExercises">0</h2>
+                    <p class="mb-0">Total de Treinos</p>
+                  </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <div class="card bg-success text-white text-center p-3">
+                    <div><i class="fas fa-fire fa-2x mb-2"></i></div>
+                    <h2 id="totalCalories">0</h2>
+                    <p class="mb-0">Calorias Queimadas</p>
+                  </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <div class="card bg-info text-white text-center p-3">
+                    <div><i class="fas fa-clock fa-2x mb-2"></i></div>
+                    <h2 id="totalMinutes">0</h2>
+                    <p class="mb-0">Minutos Totais</p>
+                  </div>
+                </div>
+              </div>
+              <div class="mteck>
+                <h6>Estatísticas por Tipo de Exercício</h6>
+                <canvas id="exerciseTypeChart" style="height: 300px"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <span class="anchor-target" id="config-section"></span>
+
+          <div class="card shadow-sm">
+            <div class="card-header bg-light">
+              <h5 class="mb-0">Configurações</h5>
+            </div>
+            <div class="card-body">
+              <div class="form-check form-switch mb-3">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="darkModeSwitch"
+                />
+                <label class="form-check-label" for="darkModeSwitch"
+                  >Modo Escuro</label
+                >
+              </div>
+              <div class="form-check form-switch mb-3">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="notificationsSwitch"
+                  checked
+                />
+                <label class="form-check-label" for="notificationsSwitch"
+                  >Receber Notificações</label
+                >
+              </div>
+              <div class="mt-4">
+                <h6>Permissões do Dispositivo</h6>
+                <div class="d-flex flex-wrap">
+                  <button
+                    class="btn btn-outline-primary me-2 mb-2"
+                    id="locationPermBtn"
+                  >
+                    <i class="fas fa-map-marker-alt me-1"></i> Localização
+                  </button>
+                  <button
+                    class="btn btn-outline-primary me-2 mb-2"
+                    id="cameraPermBtn"
+                  >
+                    <i class="fas fa-camera me-1"></i> Câmera
+                  </button>
+                  <button
+                    class="btn btn-outline-primary me-2 mb-2"
+                    id="motionPermBtn"
+                  >
+                    <i class="fas fa-running me-1"></i> Sensores de Movimento
+                  </button>
+                </div>
+                <small class="text-muted"
+                  >Estas permissões serão usadas para melhorar sua experiência e
+                  rastrear exercícios automaticamente.</small
+                >
+              </div>
+              <hr />
+              <button class="btn btn-danger" id="clearDataBtn">
+                Limpar Todos os Dados
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer class="bg-light py-3 mt-5">
+      <div class="container text-center">
+        <p class="mb-0 text-muted">&copy; 2025 Diário de Exercícios</p>
+      </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <script src="profile.js"></script>
+  </body>
+</html>

@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Diário de Exercícios</title>
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png" />
+    <meta name="apple-mobile-web-app-title" content="Diário de Exercícios" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="preload" href="styles.css" as="style" />
+    <link rel="preload" href="app.js" as="script" />
+    <link rel="manifest" href="manifest.json" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link href="styles.css" rel="stylesheet" />
+    <meta
+      name="description"
+      content="Registre e monitore suas atividades físicas com o Diário de Exercícios."
+    />
+    <meta name="keywords" content="exercício, fitness, saúde, bem-estar" />
+    <meta name="author" content="Seu Nome" />
+    <meta name="theme-color" content="#0d6efd" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <div class="container">
+        <a class="navbar-brand" href="#" aria-label="Página inicial"
+          ><i class="fas fa-running me-2"></i>Diário de Exercícios</a
+        >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link active" href="index.html" aria-current="page"
+                >Início</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="profile.html">Perfil</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#" id="loginBtn">Entrar</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <main class="container my-4">
+      <div class="row">
+        <div class="col-md-8 mb-4">
+          <div class="card shadow-sm">
+            <div
+              class="card-header bg-light d-flex justify-content-between align-items-center"
+            >
+              <h5 class="mb-0">Seus Exercícios</h5>
+              <button
+                class="btn btn-primary btn-sm"
+                data-bs-toggle="modal"
+                data-bs-target="#addExerciseModal"
+                aria-label="Adicionar exercício"
+              >
+                <i class="fas fa-plus me-1"></i> Adicionar
+              </button>
+            </div>
+            <div class="card-body">
+              <div id="exercisesList" class="list-group"></div>
+              <div class="text-center py-5 text-muted" id="noExercisesMsg">
+                <i class="fas fa-dumbbell fa-3x mb-3"></i>
+                <p>
+                  Você ainda não registrou nenhum exercício. Comece adicionando
+                  seu primeiro treino!
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card shadow-sm mb-4">
+            <div class="card-header bg-light">
+              <h5 class="mb-0">Resumo da Semana</h5>
+            </div>
+            <div class="card-body">
+              <canvas id="weeklyChart"></canvas>
+              <div class="mt-3">
+                <p>
+                  <i class="fas fa-fire text-danger me-2"></i>Total de calorias:
+                  <span id="totalCalories">0</span>
+                </p>
+                <p>
+                  <i class="fas fa-clock text-info me-2"></i>Tempo total:
+                  <span id="totalTime">0</span> min
+                </p>
+                <p>
+                  <i class="fas fa-calendar-check text-success me-2"></i
+                  >Treinos: <span id="totalWorkouts">0</span>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="card shadow-sm">
+            <div class="card-header bg-light"><h5 class="mb-0">Metas</h5></div>
+            <div class="card-body">
+              <div class="mb-3">
+                <label class="form-label">Meta semanal de treinos</label>
+                <div class="input-group">
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="weeklyGoal"
+                    min="1"
+                    value="3"
+                    aria-label="Meta semanal de treinos"
+                  />
+                  <button
+                    class="btn btn-outline-secondary"
+                    type="button"
+                    id="saveGoalBtn"
+                    aria-label="Salvar meta"
+                  >
+                    Salvar
+                  </button>
+                </div>
+              </div>
+              <div class="progress mb-2">
+                <div
+                  class="progress-bar bg-success"
+                  id="workoutProgress"
+                  role="progressbar"
+                  style="width: 0%"
+                ></div>
+              </div>
+              <small class="text-muted"
+                >Progresso: <span id="progressText">0/3</span> treinos</small
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <!-- Modal de adicionar exercício -->
+    <div
+      class="modal fade"
+      id="addExerciseModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">
+              Adicionar Exercício
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Fechar"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="exerciseForm">
+              <div class="mb-3">
+                <label class="form-label">Tipo de Exercício</label>
+                <select
+                  class="form-select"
+                  id="exerciseType"
+                  required
+                  aria-label="Tipo de exercício"
+                >
+                  <option value="" selected disabled>Selecione</option>
+                  <option value="running">Corrida</option>
+                  <option value="cycling">Ciclismo</option>
+                  <option value="swimming">Natação</option>
+                  <option value="weights">Musculação</option>
+                  <option value="yoga">Yoga</option>
+                  <option value="other">Outro</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Data</label>
+                <input
+                  type="date"
+                  class="form-control"
+                  id="exerciseDate"
+                  required
+                  aria-label="Data do exercício"
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Duração (minutos)</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="exerciseDuration"
+                  min="1"
+                  required
+                  aria-label="Duração do exercício"
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label"
+                  >Calorias Queimadas (estimativa)</label
+                >
+                <input
+                  type="number"
+                  class="form-control"
+                  id="exerciseCalories"
+                  min="1"
+                  aria-label="Calorias queimadas"
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Notas</label>
+                <textarea
+                  class="form-control"
+                  id="exerciseNotes"
+                  rows="3"
+                  aria-label="Notas sobre o exercício"
+                ></textarea>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+              aria-label="Cancelar"
+            >
+              Cancelar
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              id="saveExerciseBtn"
+              aria-label="Salvar exercício"
+            >
+              Salvar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal de Login/Cadastro -->
+    <div
+      class="modal fade"
+      id="authModal"
+      tabindex="-1"
+      aria-labelledby="authModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="authModalTitle">Entrar</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Fechar"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <ul class="nav nav-tabs mb-3" id="authTabs">
+              <li class="nav-item">
+                <a
+                  class="nav-link active"
+                  id="login-tab"
+                  data-bs-toggle="tab"
+                  href="#login"
+                  aria-controls="login"
+                  >Login</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  id="register-tab"
+                  data-bs-toggle="tab"
+                  href="#register"
+                  aria-controls="register"
+                  >Cadastro</a
+                >
+              </li>
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane fade show active" id="login">
+                <form id="loginForm">
+                  <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input
+                      type="email"
+                      class="form-control"
+                      id="loginEmail"
+                      required
+                      aria-label="Email"
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Senha</label>
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="loginPassword"
+                      required
+                      aria-label="Senha"
+                    />
+                  </div>
+                  <button
+                    type="submit"
+                    class="btn btn-primary w-100"
+                    aria-label="Entrar"
+                  >
+                    Entrar
+                  </button>
+                </form>
+              </div>
+              <div class="tab-pane fade" id="register">
+                <form id="registerForm">
+                  <div class="mb-3">
+                    <label class="form-label">Nome</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="registerName"
+                      required
+                      aria-label="Nome"
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input
+                      type="email"
+                      class="form-control"
+                      id="registerEmail"
+                      required
+                      aria-label="Email"
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Senha</label>
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="registerPassword"
+                      required
+                      aria-label="Senha"
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Confirmar Senha</label>
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="confirmPassword"
+                      required
+                      aria-label="Confirmar senha"
+                    />
+                  </div>
+                  <button
+                    type="submit"
+                    class="btn btn-success w-100"
+                    aria-label="Cadastrar"
+                  >
+                    Cadastrar
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer class="bg-light py-3 mt-5">
+      <div class="container text-center">
+        <p class="mb-0 text-muted">&copy; 2025 Diário de Exercícios</p>
+      </div>
+    </footer>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"
+      defer
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"
+      defer
+    ></script>
+    <script src="app.js" defer></script>
+  </body>
+</html>
