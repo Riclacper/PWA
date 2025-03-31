@@ -1,7 +1,3 @@
-Aqui está o texto organizado e formatado para o arquivo `README.md`. Ele segue as convenções do Markdown para garantir que fique bem estruturado e legível:
-
----
-
 # Diário de Exercícios
 
 Uma aplicação web **responsiva e intuitiva** para rastrear suas atividades físicas e monitorar seu progresso.
